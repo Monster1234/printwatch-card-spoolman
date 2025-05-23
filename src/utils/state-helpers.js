@@ -28,7 +28,7 @@ export const isPaused = (hass, config) =>
 export const getAmsSlots = (hass, config) => {
   // First, check for explicit external spool configuration
   const externalSpoolEntity = config.external_spool_entity;
-  
+
   // Check if any AMS slot entities are defined and not null
   const amsSlotEntities = [
     config.ams_slot1_entity,
@@ -83,6 +83,34 @@ export const getAmsSlots = (hass, config) => {
       };
     })
     .filter(Boolean);
+
+  // Map spoolman sensors by tray index based on entity id prefix,
+  // parsing tray value from string or number
+  const spoolmanSensors = {};
+  Object.entries(hass.states).forEach(([entityId, stateObj]) => {
+    if (entityId.startsWith('sensor.spoolman_spool_')) {
+      const rawTray = stateObj.attributes?.extra_ams_tray;
+      const tray = Number.isInteger(rawTray)
+        ? rawTray
+        : parseInt(rawTray, 10);
+      if (!isNaN(tray) && tray - 1 >= 0) {
+        spoolmanSensors[tray - 1] = stateObj;
+      }
+    }
+  });
+
+  // Attach remainingWeight from spoolmanSensors
+  processedSlots.forEach((slot, idx) => {
+    const sensorObj = spoolmanSensors[idx];
+    if (sensorObj) {
+      const weight = parseFloat(sensorObj.state);
+      const percent = parseFloat(sensorObj.attributes.used_percentage);
+      if (!isNaN(weight)) {
+        slot.weight = weight;
+        slot.percent = percent;
+      }
+    }
+  });
 
   return processedSlots.length > 0 ? processedSlots : [];
 };

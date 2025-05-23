@@ -331,39 +331,58 @@ export const cardStyles = css`
   }
 
   /* Materials */
-  .materials {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
-    gap: 16px;
-    padding: 16px;
-  }
+.materials {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+  gap: 16px;
+  padding: 16px;
+}
 
-  .material-slot {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    text-align: center;
+.material-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+  .material-circle-wrapper {
+    position: relative;
+    width: 32px;
+    height: 32px;
   }
-
-  .material-circle {
+  .material-circle-border {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    border: 1px solid var(--divider-color);
-    position: relative;
+    border: 3px solid var(--divider-color);
+    box-sizing: border-box;
     transition: transform 0.3s ease;
   }
-
-  .material-circle.active {
+  .material-circle-border.active {
     transform: scale(1.1);
-    box-shadow: 0 0 0 2px var(--primary-background-color),
-                0 0 0 4px var(--primary-color);
+    box-shadow:
+      0 0 0 2px var(--primary-background-color),
+      0 0 0 4px var(--primary-color);
   }
-
+  .material-circle-fill {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    box-sizing: content-box;
+    /* no transition */
+  }
   .material-type {
     font-size: 12px;
     color: var(--primary-text-color);
-    text-align: center;
+  }
+  .material-weight {
+    font-size: 12px;
+    color: var(--secondary-text-color);
   }
 `;
