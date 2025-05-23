@@ -9,7 +9,11 @@
         "offline": "Offline",
         "unknown": "Unknown",
         "running": "Running",
-        "finish": "Finished"
+        "finish": "Finished",
+        "failed": "Failed",
+        "init": "Init",
+        "prepare": "Prepare",
+        "slicing": "Slicing"
       }
     }
   },
