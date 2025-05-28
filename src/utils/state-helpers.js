@@ -104,10 +104,10 @@ export const getAmsSlots = (hass, config) => {
     const sensorObj = spoolmanSensors[idx];
     if (sensorObj) {
       const weight = parseFloat(sensorObj.state);
-      const percent = parseFloat(sensorObj.attributes.used_percentage);
+      const remaining_percent = weight / parseFloat(sensorObj.attributes.initial_weight);
       if (!isNaN(weight)) {
         slot.weight = weight;
-        slot.percent = percent;
+        slot.remaining_percent = remaining_percent;
       }
     }
   });

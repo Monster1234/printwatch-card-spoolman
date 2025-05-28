@@ -4,7 +4,7 @@ import { localize } from '../../utils/localize';
 export const materialSlotsTemplate = (slots) => html`
   <div class="materials">
     ${slots.map(slot => {
-      const percent = slot.percent ?? 0;
+      const percent = 100 * (1 - (slot.remaining_percent ?? 0));
       const baseColor = slot.color || '#E0E0E0';
       // Clip top 'percent%' of the fill only
       const clipInset = `inset(${percent}% 0 0 0)`;
