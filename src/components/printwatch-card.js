@@ -15,6 +15,7 @@ class PrintWatchCard extends LitElement {
       _lastCameraUpdate: { type: Number },
       _cameraUpdateInterval: { type: Number },
       _cameraError: { type: Boolean },
+      _cameraExternal: { type: Boolean },
       _dialogConfig: { state: true },
       _confirmDialog: { state: true }
     };
@@ -29,6 +30,7 @@ class PrintWatchCard extends LitElement {
     this._lastCameraUpdate = 0;
     this._cameraUpdateInterval = DEFAULT_CAMERA_REFRESH_RATE;
     this._cameraError = false;
+    this._IsExternalCamera = false;
     this._dialogConfig = { open: false };
     this._confirmDialog = { open: false };
     this.formatters = {
@@ -43,6 +45,7 @@ class PrintWatchCard extends LitElement {
     }
     this.config = { ...DEFAULT_CONFIG, ...config };
     this._cameraUpdateInterval = config.camera_refresh_rate || DEFAULT_CAMERA_REFRESH_RATE;
+    this._IsExternalCamera = this._hasExternalCam();
   }
 
   isOnline() {
@@ -98,16 +101,21 @@ class PrintWatchCard extends LitElement {
   }
 
   _updateCameraFeed() {
-    if (!this.isOnline()) {
-      return;
+    if(this._IsExternalCamera && !this._hasExternalCam()){
+        this._IsExternalCamera = false;
+      }
+
+    if (!this.isOnline() && !this._IsExternalCamera) {
+        return;
     }
 
+    const entityToFind = this._IsExternalCamera ? this.config.camera_entity_external : this.config.camera_entity;
+
     this._lastCameraUpdate = Date.now();
-    
     const timestamp = new Date().getTime();
     const cameraImg = this.shadowRoot?.querySelector('.camera-feed img');
     if (cameraImg) {
-      const cameraEntity = this.hass.states[this.config.camera_entity];
+      const cameraEntity = this.hass.states[entityToFind];
       if (cameraEntity?.attributes?.entity_picture) {
         cameraImg.src = `${cameraEntity.attributes.entity_picture}&t=${timestamp}`;
       }
@@ -120,6 +128,25 @@ class PrintWatchCard extends LitElement {
         coverImg.src = `${coverEntity.attributes.entity_picture}&t=${timestamp}`;
       }
     }
+  }
+  _hasExternalCam(){
+    if(this.config.camera_entity_external){
+        return true;
+    }
+    return false;
+  }
+
+  _switchToExternalCam(){
+    if(!this.config.camera_entity_external){
+        return;
+    }
+    this._IsExternalCamera = true;
+    this._updateCameraFeed();
+  }
+
+  _switchToInternalCam(){
+    this._IsExternalCamera = false;
+    this._updateCameraFeed();
   }
 
   handlePauseDialog() {
@@ -185,6 +212,10 @@ class PrintWatchCard extends LitElement {
       _toggleLight: () => this._toggleLight(),
       _toggleFan: () => this._toggleFan(),
       _cameraError: this._cameraError,
+      _switchToExternalCam: () => this._switchToExternalCam(),
+      _switchToInternalCam: () => this._switchToInternalCam(),
+      _IsExternalCam: this._IsExternalCamera,
+      _HasExternalCam: this._hasExternalCam(),
       isOnline: this.isOnline(),
       handleImageError: () => this.handleImageError(),
       handleImageLoad: () => this.handleImageLoad(),

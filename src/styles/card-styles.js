@@ -156,6 +156,14 @@ export const cardStyles = css`
     text-transform: capitalize;
   }
 
+  .camera-controls {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    color: var(--secondary-text-color);
+    padding: 4px 8px;
+  }
+
   /* Print Status */
   .print-status {
     background: var(--ha-card-background);

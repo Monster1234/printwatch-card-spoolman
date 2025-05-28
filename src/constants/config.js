@@ -21,6 +21,7 @@ export const DEFAULT_CONFIG = {
   ams_slot3_entity: 'sensor.p1s_01p00a382500072_ams_1_tray_3',
   ams_slot4_entity: 'sensor.p1s_01p00a382500072_ams_1_tray_4',
   camera_entity: 'image.p1s_camera',
+  camera_entity_external: '',
   cover_image_entity: 'image.p1s_cover_image',
   pause_button_entity: 'button.p1s_01p00a382500072_pause_printing',
   resume_button_entity: 'button.p1s_01p00a382500072_resume_printing',
