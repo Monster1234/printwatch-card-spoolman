@@ -36,3 +36,4 @@ export const DEFAULT_CONFIG = {
  * Default camera update interval in milliseconds
  */
 export const DEFAULT_CAMERA_REFRESH_RATE = 1000;
+export const DEFAULT_EX_CAMERA_REFRESH_RATE = 300;

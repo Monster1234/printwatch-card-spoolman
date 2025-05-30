@@ -15,12 +15,7 @@ export const cardTemplate = (context) => {
     amsSlots, 
     _toggleLight, 
     _toggleFan, 
-    _cameraError, 
-    _switchToExternalCam,
-    _switchToInternalCam,
-    _IsExternalCam, 
-    _HasExternalCam,
-    isOnline,
+    cameraProps,
     formatters,
     dialogConfig,
     confirmDialog,
@@ -38,18 +33,6 @@ export const cardTemplate = (context) => {
     onLightToggle: _toggleLight,
     onFanToggle: _toggleFan,
     hass
-  };
-
-  const cameraProps = {
-    isOnline,
-    hasError: _cameraError,
-    _switchToExternalCam: _switchToExternalCam,
-    _switchToInternalCam: _switchToInternalCam,
-    _IsExternalCam: _IsExternalCam,
-    _HasExternalCam: _HasExternalCam,
-    currentStage: entities.currentStage,
-    onError: context.handleImageError,
-    onLoad: context.handleImageLoad
   };
 
   return html`

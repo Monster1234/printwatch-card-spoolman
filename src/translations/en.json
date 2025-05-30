@@ -23,7 +23,10 @@
         "not_printing": "Not currently printing",
         "last_print": "Last print: {name}",
         "printer_offline": "Printer offline",
-        "camera_unavailable": "Camera unavailable",
+        "camera_init": "Discovering cameras...",
+        "no_camera_found": "Couldn't find any camera",
+        "camera_unavailable": "Internal Camera unavailable",
+        "camera_external_unavailable": "External Camera unavailable",
         "time": {
           "complete": "Complete",
           "left": "Left",
