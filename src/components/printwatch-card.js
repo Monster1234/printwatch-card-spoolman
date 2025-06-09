@@ -59,8 +59,11 @@ class PrintWatchCard extends LitElement {
           this.shadowRoot,
           () => this.isOnline()
         );
+        this._cameraManager.addEventListener('camera-source-changed', () => {
+          this.requestUpdate();
+        });
         this._cameraManager.start(1);
-        this.requestUpdate();        
+        this.requestUpdate();
       }
     }
   }
