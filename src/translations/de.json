@@ -62,7 +62,10 @@
           "empty": "Leer",
           "unknown": "Unbekannt",
           "external_spool": "Externe Spule",
-          "enter_weight": "Verbrauchtes Gewicht (g)"
+          "enter_weight": "Verbrauchtes Gewicht (g)",
+          "set_tray": "Fach setzen",
+          "select_spool": "Spule auswählen",
+          "current_tray": "Aktuelles Fach"
         }
       }
     }

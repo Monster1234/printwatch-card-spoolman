@@ -84,7 +84,10 @@
           "empty": "Empty",
           "unknown": "Unknown",
           "external_spool": "External Spool",
-          "enter_weight": "Used weight (g)"
+          "enter_weight": "Used weight (g)",
+          "set_tray": "Set Tray",
+          "select_spool": "Select Spool",
+          "current_tray": "Current Tray"
         }
       }
     }

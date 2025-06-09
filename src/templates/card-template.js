@@ -49,7 +49,7 @@ export const cardTemplate = (context) => {
         onImageError: context.handleImageError
       })}
       ${temperatureDisplayTemplate(entities, hass, dialogConfig, setDialogConfig)}
-      ${materialSlotsTemplate(amsSlots, handleSpoolDialog)}
+      ${materialSlotsTemplate(amsSlots, (slot, idx) => handleSpoolDialog(slot, idx))}
       ${temperatureDialogTemplate(dialogConfig, hass)}
       ${spoolUsageDialogTemplate(spoolDialog, hass)}
       ${confirmDialogTemplate(confirmDialog)}

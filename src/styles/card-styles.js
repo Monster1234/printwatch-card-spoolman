@@ -345,6 +345,15 @@ export const cardStyles = css`
     width: 100%;
   }
 
+  mwc-tab-bar {
+    --mdc-theme-primary: var(--primary-color);
+    margin-bottom: 8px;
+  }
+
+  .tab-content {
+    padding: 8px 0;
+  }
+
   /* Materials */
   .materials {
     display: grid;
