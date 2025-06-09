@@ -54,6 +54,7 @@
           "stop": "Stop",
           "cancel": "Cancel",
           "save": "Save",
+          "submit": "Submit",
           "internal": "Internal",
           "external": "External"
         },

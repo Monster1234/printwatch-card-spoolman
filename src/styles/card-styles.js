@@ -346,32 +346,30 @@ export const cardStyles = css`
   }
 
   /* Materials */
-.materials {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
-  gap: 16px;
-  padding: 16px;
-}
+  .materials {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    gap: 16px;
+    padding: 16px;
+  }
 
-.material-slot {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  text-align: center;
-  cursor: pointer;
-  padding: 12px;
-  border-radius: 12px;
-  transition: background-color 0.2s ease;
-  -webkit-tap-highlight-color: transparent;
-}
-.material-slot:hover {
-  background-color: var(--secondary-background-color);
-}
-.material-slot:active {
-  background-color: var(--primary-color);
-  opacity: 0.8;
-}
+  .material-slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 12px;
+    transition: background-color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+    
+  .material-slot:hover {
+    background-color: var(--secondary-background-color);
+  }
+
   .material-circle-wrapper {
     position: relative;
     width: 32px;

@@ -4,8 +4,12 @@ import { localize } from '../../utils/localize';
 export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
   if (!dialogConfig?.open) return html``;
 
-  const handleSubmit = () => {
-    const dialog = document.getElementById('spoolUsageDialog');
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Get the dialog element from the event path
+    const dialog = e.target.closest('ha-dialog');
+    if (!dialog) return;
+
     const input = dialog?.querySelector('ha-textfield');
     const value = input ? parseFloat(input.value) : null;
     if (!dialogConfig.spoolId || value === null || isNaN(value)) return;
@@ -44,7 +48,7 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
         @click=${handleSubmit}
         class="save-button"
       >
-        ${localize.t('controls.save')}
+        ${localize.t('controls.submit')}
       </mwc-button>
     </ha-dialog>
   `;
