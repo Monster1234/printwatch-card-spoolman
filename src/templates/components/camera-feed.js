@@ -37,10 +37,10 @@ export const cameraFeedTemplate = (cameraProps) => {
       <div class="camera-label">${currentStage}</div>
       ${showControls
         ? html`<div class="camera-controls">
-            <button @click=${_switchToInternalCam} class="btn btn-internal">
+            <button @click=${_switchToInternalCam} class="icon-button camera ${_activeCameraIndex === 0 ? 'active' : ''}" >
               <ha-icon icon="mdi:camera-document"></ha-icon>
             </button>
-            <button @click=${_switchToExternalCam} class="btn btn-external">
+            <button @click=${_switchToExternalCam} class="icon-button camera ${_activeCameraIndex === 1 ? 'active' : ''}">
               <ha-icon icon="mdi:cctv"></ha-icon>
             </button>
           </div>`

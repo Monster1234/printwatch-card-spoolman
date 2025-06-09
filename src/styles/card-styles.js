@@ -106,6 +106,13 @@ export const cardStyles = css`
     transition: all 0.2s ease;
   }
 
+  .icon-button.camera {
+    background: #00000054;
+    padding: 8px 24px;
+    border-radius: 8px;
+    display: inline;
+  }
+
   .icon-button:hover {
     background: var(--secondary-background-color);
   }
