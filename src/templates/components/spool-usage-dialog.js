@@ -1,4 +1,6 @@
 import { html } from 'lit';
+import '@material/mwc-tab';
+import '@material/mwc-tab-bar';
 import { localize } from '../../utils/localize';
 
 export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
