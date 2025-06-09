@@ -14,6 +14,20 @@ export class CameraManager {
     this.activeIndex = -1;
     this.initialized = false;
     this._intervalId = null;
+    // Simple event target for dispatching events
+    this._eventTarget = new EventTarget();
+  }
+
+  addEventListener(type, listener) {
+    this._eventTarget.addEventListener(type, listener);
+  }
+
+  removeEventListener(type, listener) {
+    this._eventTarget.removeEventListener(type, listener);
+  }
+
+  _dispatch(type, detail = {}) {
+    this._eventTarget.dispatchEvent(new CustomEvent(type, { detail }));
   }
 
   clamp(val, min, max) {
@@ -54,6 +68,7 @@ export class CameraManager {
   }
 
   resolveActiveCam(desiredCam = 1) {
+    const oldIndex = this.activeIndex;
     desiredCam = this.clamp(desiredCam, 0, 1);
 
     if (desiredCam === 1) {
@@ -76,6 +91,9 @@ export class CameraManager {
       }
     }
     this.initialized = true;
+    if (oldIndex !== this.activeIndex) {
+      this._dispatch('camera-source-changed', { activeIndex: this.activeIndex });
+    }
   }
 
   switchToExternal() {
