@@ -73,12 +73,17 @@
             "title": "Confirm Stop",
             "message": "Are you sure you want to stop the current print? This action cannot be undone.",
             "confirm": "Stop Print"
+          },
+          "use_filament": {
+            "title": "Use Filament",
+            "confirm": "Confirm"
           }
         },
         "materials": {
           "empty": "Empty",
           "unknown": "Unknown",
-          "external_spool": "External Spool"
+          "external_spool": "External Spool",
+          "enter_weight": "Used weight (g)"
         }
       }
     }

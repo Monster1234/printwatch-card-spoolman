@@ -15,7 +15,8 @@ class PrintWatchCard extends LitElement {
       config: { type: Object },
       _cameraUpdateInterval: { type: Number },
       _dialogConfig: { state: true },
-      _confirmDialog: { state: true }
+      _confirmDialog: { state: true },
+      _spoolDialog: { state: true }
     };
   }
 
@@ -30,6 +31,7 @@ class PrintWatchCard extends LitElement {
     this._ext_cameraUpdateInterval = DEFAULT_EX_CAMERA_REFRESH_RATE;
     this._dialogConfig = { open: false };
     this._confirmDialog = { open: false };
+    this._spoolDialog = { open: false };
     this.formatters = {
       formatDuration,
       formatEndTime
@@ -146,6 +148,21 @@ class PrintWatchCard extends LitElement {
     this.requestUpdate();
   }
 
+  handleSpoolUsageDialog(slot) {
+    if (!slot?.spool_id) return;
+
+    this._spoolDialog = {
+      open: true,
+      spoolId: slot.spool_id,
+      title: localize.t('dialogs.use_filament.title'),
+      onClose: () => {
+        this._spoolDialog = { open: false };
+        this.requestUpdate();
+      }
+    };
+    this.requestUpdate();
+  }
+
   render() {
     if (!this.hass || !this.config) {
       return html``;
@@ -183,9 +200,11 @@ class PrintWatchCard extends LitElement {
       cameraProps,
       dialogConfig: this._dialogConfig,
       confirmDialog: this._confirmDialog,
+      spoolDialog: this._spoolDialog,
       setDialogConfig,
       handlePauseDialog: () => this.handlePauseDialog(),
       handleStopDialog: () => this.handleStopDialog(),
+      handleSpoolDialog: (slot) => this.handleSpoolUsageDialog(slot)
     });
   }
 

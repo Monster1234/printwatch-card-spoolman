@@ -99,7 +99,7 @@ export const getAmsSlots = (hass, config) => {
     }
   });
 
-  // Attach remainingWeight from spoolmanSensors
+  // Attach remainingWeight and spoolId from spoolmanSensors
   processedSlots.forEach((slot, idx) => {
     const sensorObj = spoolmanSensors[idx];
     if (sensorObj) {
@@ -108,6 +108,9 @@ export const getAmsSlots = (hass, config) => {
       if (!isNaN(weight)) {
         slot.weight = weight;
         slot.remaining_percent = remaining_percent;
+      }
+      if (sensorObj.attributes?.id !== undefined) {
+        slot.spool_id = sensorObj.attributes.id;
       }
     }
   });

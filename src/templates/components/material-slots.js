@@ -1,15 +1,15 @@
 import { html } from 'lit';
 import { localize } from '../../utils/localize';
 
-export const materialSlotsTemplate = (slots) => html`
+export const materialSlotsTemplate = (slots, onClick) => html`
   <div class="materials">
-    ${slots.map(slot => {
+    ${slots.map((slot, index) => {
       const percent = 100 * (1 - (slot.remaining_percent ?? 0));
       const baseColor = slot.color || '#E0E0E0';
       // Clip top 'percent%' of the fill only
       const clipInset = `inset(${percent}% 0 0 0)`;
       return html`
-        <div class="material-slot">
+        <div class="material-slot" @click=${() => onClick?.(slot, index)}>
           <div class="material-circle-wrapper">
             <!-- Border layer: full circle -->
             <div
