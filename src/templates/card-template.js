@@ -7,6 +7,7 @@ import { temperatureDisplayTemplate } from './components/temperature-display';
 import { materialSlotsTemplate } from './components/material-slots';
 import { temperatureDialogTemplate } from './components/temperature-controls';
 import { confirmDialogTemplate } from './components/confirm-dialog';
+import { spoolUsageDialogTemplate } from './components/spool-usage-dialog';
 
 export const cardTemplate = (context) => {
   const { 
@@ -19,9 +20,11 @@ export const cardTemplate = (context) => {
     formatters,
     dialogConfig,
     confirmDialog,
+    spoolDialog,
     setDialogConfig,
     handlePauseDialog,
-    handleStopDialog
+    handleStopDialog,
+    handleSpoolDialog
   } = context;
 
   if (!entities || !hass) return html``;
@@ -46,8 +49,9 @@ export const cardTemplate = (context) => {
         onImageError: context.handleImageError
       })}
       ${temperatureDisplayTemplate(entities, hass, dialogConfig, setDialogConfig)}
-      ${materialSlotsTemplate(amsSlots)}
+      ${materialSlotsTemplate(amsSlots, handleSpoolDialog)}
       ${temperatureDialogTemplate(dialogConfig, hass)}
+      ${spoolUsageDialogTemplate(spoolDialog, hass)}
       ${confirmDialogTemplate(confirmDialog)}
     </div>
   `;

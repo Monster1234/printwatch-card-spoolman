@@ -52,12 +52,17 @@
             "title": "Stopp bestätigen",
             "message": "Möchten Sie den aktuellen Druck wirklich stoppen? Diese Aktion kann nicht rückgängig gemacht werden.",
             "confirm": "Druck stoppen"
+          },
+          "use_filament": {
+            "title": "Filament verwenden",
+            "confirm": "Bestätigen"
           }
         },
         "materials": {
           "empty": "Leer",
           "unknown": "Unbekannt",
-          "external_spool": "Externe Spule"
+          "external_spool": "Externe Spule",
+          "enter_weight": "Verbrauchtes Gewicht (g)"
         }
       }
     }
