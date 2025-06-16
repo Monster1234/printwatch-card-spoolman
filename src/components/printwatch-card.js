@@ -148,12 +148,15 @@ class PrintWatchCard extends LitElement {
     this.requestUpdate();
   }
 
-  handleSpoolUsageDialog(slot) {
-    if (!slot?.spool_id) return;
+  handleSpoolUsageDialog(slot, index) {
+    if (!slot) return;
+
+    const trayIndex = index ?? 0;
 
     this._spoolDialog = {
       open: true,
       spoolId: slot.spool_id,
+      trayIndex,
       title: localize.t('dialogs.use_filament.title'),
       onClose: () => {
         this._spoolDialog = { open: false };
@@ -204,7 +207,7 @@ class PrintWatchCard extends LitElement {
       setDialogConfig,
       handlePauseDialog: () => this.handlePauseDialog(),
       handleStopDialog: () => this.handleStopDialog(),
-      handleSpoolDialog: (slot) => this.handleSpoolUsageDialog(slot)
+      handleSpoolDialog: (slot, idx) => this.handleSpoolUsageDialog(slot, idx)
     });
   }
 

@@ -345,6 +345,10 @@ export const cardStyles = css`
     width: 100%;
   }
 
+  .section-content {
+    padding: 8px 0;
+  }
+
   /* Materials */
   .materials {
     display: grid;
