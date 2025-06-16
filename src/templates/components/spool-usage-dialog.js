@@ -96,6 +96,7 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
       <div class="dialog-content">
         <ha-select
           id="action-select"
+          .value="0"
           @selected=${handleSectionChange}
           @closed=${(e) => e.stopPropagation()}
         >
@@ -128,7 +129,7 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
             `
           : html`
               <div class="section-content">
-                <ha-select id="spool-select">
+                <ha-select id="spool-select" .value=${spoolOptions[0]?.id ?? ''}>
                   ${spoolOptions.map(opt => html`<mwc-list-item .value=${opt.id}>${opt.name}</mwc-list-item>`)}
                 </ha-select>
               </div>
