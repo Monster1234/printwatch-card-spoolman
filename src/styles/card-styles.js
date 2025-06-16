@@ -350,7 +350,7 @@ export const cardStyles = css`
     margin-bottom: 8px;
   }
 
-  .tab-content {
+  .section-content {
     padding: 8px 0;
   }
 

@@ -22,8 +22,8 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
     e.preventDefault();
     const dialog = e.target.closest('ha-dialog');
     if (!dialog) return;
-    const tabBar = dialog.querySelector('mwc-tab-bar');
-    const activeIndex = tabBar?.activeIndex ?? 0;
+    const select = dialog.querySelector('#action-select');
+    const activeIndex = parseInt(select?.value ?? '0', 10);
 
     if (dialogConfig.spoolId) {
       if (activeIndex === 0) {
@@ -64,14 +64,15 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
     }
   };
 
-  const handleTab = (e) => {
+  const handleSectionChange = (e) => {
     const dialog = e.target.closest('ha-dialog');
     if (!dialog) return;
-    const index = e.detail.index;
-    const contents = dialog.querySelectorAll('.tab-content');
+    const index = parseInt(e.target.value, 10);
+    const contents = dialog.querySelectorAll('.section-content');
     contents.forEach((c, i) => {
       c.style.display = i === index ? 'block' : 'none';
     });
+    e.stopPropagation();
   };
 
   const spoolSensors = Object.entries(hass.states)
@@ -92,25 +93,33 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
       @closed=${dialogConfig.onClose}
       .heading=${dialogConfig.title}
     >
-      <mwc-tab-bar @MDCTabBar:activated=${handleTab}>
-        ${dialogConfig.spoolId
-          ? html`
-              <mwc-tab label="${localize.t('dialogs.use_filament.title')}"></mwc-tab>
-              <mwc-tab label="${localize.t('materials.set_tray')}"></mwc-tab>
-            `
-          : html`<mwc-tab label="${localize.t('materials.select_spool')}"></mwc-tab>`}
-      </mwc-tab-bar>
       <div class="dialog-content">
+        <ha-select
+          id="action-select"
+          @selected=${handleSectionChange}
+          @closed=${(e) => e.stopPropagation()}
+        >
+          ${dialogConfig.spoolId
+            ? html`
+                <mwc-list-item value="0">
+                  ${localize.t('dialogs.use_filament.title')}
+                </mwc-list-item>
+                <mwc-list-item value="1">
+                  ${localize.t('materials.set_tray')}
+                </mwc-list-item>
+              `
+            : html`<mwc-list-item value="0">${localize.t('materials.select_spool')}</mwc-list-item>`}
+        </ha-select>
         ${dialogConfig.spoolId
           ? html`
-              <div class="tab-content">
+              <div class="section-content">
                 <ha-textfield
                   label=${localize.t('materials.enter_weight')}
                   type="number"
                   class="temp-input"
                 ></ha-textfield>
               </div>
-              <div class="tab-content" style="display:none">
+              <div class="section-content" style="display:none">
                 <div class="current-tray">${localize.t('materials.current_tray')}: ${currentTray}</div>
                 <ha-select id="tray-select" .value="${currentTray}">
                   ${[1, 2, 3, 4].map(i => html`<mwc-list-item .value=${i}>${i}</mwc-list-item>`)}
@@ -118,7 +127,7 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
               </div>
             `
           : html`
-              <div class="tab-content">
+              <div class="section-content">
                 <ha-select id="spool-select">
                   ${spoolOptions.map(opt => html`<mwc-list-item .value=${opt.id}>${opt.name}</mwc-list-item>`)}
                 </ha-select>
