@@ -3,7 +3,7 @@ import { LitElement, html } from 'lit';
 import { cardTemplate } from '../templates/card-template';
 import { cardStyles } from '../styles/card-styles';
 import { formatDuration, formatEndTime } from '../utils/formatters';
-import { isPrinting, isPaused, getAmsSlots, getEntityStates } from '../utils/state-helpers';
+import { isPrinting, isPaused, getAmsSlots, getUnassignedSpools, getEntityStates } from '../utils/state-helpers';
 import { DEFAULT_CONFIG, DEFAULT_CAMERA_REFRESH_RATE, DEFAULT_EX_CAMERA_REFRESH_RATE } from '../constants/config';
 import { localize } from '../utils/localize';
 import { CameraManager } from '../utils/camera-manager';
@@ -172,6 +172,7 @@ class PrintWatchCard extends LitElement {
 
     const entities = getEntityStates(this.hass, this.config);
     const amsSlots = getAmsSlots(this.hass, this.config);
+    const otherSpools = getUnassignedSpools(this.hass);
     
     const setDialogConfig = (config) => {
       this._dialogConfig = config;
@@ -196,6 +197,7 @@ class PrintWatchCard extends LitElement {
       entities,
       hass: this.hass,
       amsSlots,
+      otherSpools,
       formatters: this.formatters,
       _toggleLight: () => this._toggleLight(),
       _toggleFan: () => this._toggleFan(),
