@@ -7,9 +7,11 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
   const clearTray = (tray) => {
     Object.entries(hass.states).forEach(([entityId, stateObj]) => {
       if (!entityId.startsWith('sensor.spoolman_spool_')) return;
+      console.log('running clear tray', tray);
       const rawTray = stateObj.attributes?.extra_ams_tray;
       const trayNum = Number.isInteger(rawTray) ? rawTray : parseInt(rawTray, 10);
       if (trayNum === tray && stateObj.attributes?.id !== dialogConfig.spoolId) {
+        console.log('clear tray', tray);
         hass.callService('spoolman', 'patch_spool', {
           id: stateObj.attributes.id,
           extra: { extra_ams_tray: 0 }
@@ -24,6 +26,7 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
     if (!dialog) return;
     const select = dialog.querySelector('#action-select');
     const activeIndex = parseInt(select?.value ?? '0', 10);
+    console.log('running submit', activeIndex);
 
     if (dialogConfig.spoolId) {
       if (activeIndex === 0) {
@@ -91,7 +94,7 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
       open
       id="spoolUsageDialog"
       @closed=${dialogConfig.onClose}
-      .heading=${dialogConfig.title}
+      .heading=${localize.t('dialogs.spoolman_dialog.title')}
     >
       <div class="dialog-content">
         <ha-select
@@ -103,7 +106,7 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
           ${dialogConfig.spoolId
             ? html`
                 <mwc-list-item value="0">
-                  ${localize.t('dialogs.use_filament.title')}
+                  ${localize.t('materials.use_filament')}
                 </mwc-list-item>
                 <mwc-list-item value="1">
                   ${localize.t('materials.set_tray')}

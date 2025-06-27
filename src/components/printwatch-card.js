@@ -157,7 +157,6 @@ class PrintWatchCard extends LitElement {
       open: true,
       spoolId: slot.spool_id,
       trayIndex,
-      title: localize.t('dialogs.use_filament.title'),
       onClose: () => {
         this._spoolDialog = { open: false };
         this.requestUpdate();

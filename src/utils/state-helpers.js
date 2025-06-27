@@ -79,7 +79,8 @@ export const getAmsSlots = (hass, config) => {
         color: state.attributes?.color || '#E0E0E0',
         empty: state.attributes?.empty || false,
         active: state.attributes?.active || false,
-        name: state.attributes?.name || 'Unknown'
+        name: state.attributes?.name || 'Unknown',
+        remaining_percent: 1.0
       };
     })
     .filter(Boolean);
@@ -103,14 +104,17 @@ export const getAmsSlots = (hass, config) => {
   processedSlots.forEach((slot, idx) => {
     const sensorObj = spoolmanSensors[idx];
     if (sensorObj) {
-      const weight = parseFloat(sensorObj.state);
-      const remaining_percent = weight / parseFloat(sensorObj.attributes.initial_weight);
-      if (!isNaN(weight)) {
-        slot.weight = weight;
-        slot.remaining_percent = remaining_percent;
-      }
       if (sensorObj.attributes?.id !== undefined) {
+        if (!sensorObj.attributes?.archived) {
+          const weight = parseFloat(sensorObj.state);
+          const remaining_percent = weight / parseFloat(sensorObj.attributes.initial_weight);
+          if (!isNaN(weight)) {
+            slot.weight = weight;
+            slot.remaining_percent = remaining_percent;
+            slot.type = sensorObj.attributes?.filament_name || slot.type;
+          }
         slot.spool_id = sensorObj.attributes.id;
+        }
       }
     }
   });
