@@ -40,7 +40,10 @@
           "pause": "Pause",
           "resume": "Fortsetzen",
           "stop": "Stopp",
-          "cancel": "Abbrechen"
+          "cancel": "Abbrechen",
+          "refresh_printer": "Drucker aktualisieren",
+          "refresh_spoolman": "Spoolman neu laden",
+          "go_to_spoolman": "Zu Spoolman"
         },
         "dialogs": {
           "pause": {

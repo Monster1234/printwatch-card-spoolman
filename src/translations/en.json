@@ -56,7 +56,10 @@
           "save": "Save",
           "submit": "Submit",
           "internal": "Internal",
-          "external": "External"
+          "external": "External",
+          "refresh_printer": "Refresh Printer",
+          "refresh_spoolman": "Refresh Spoolman",
+          "go_to_spoolman": "Go to Spoolman"
         },
         "speed_profiles": {
           "silent": "Silent",
