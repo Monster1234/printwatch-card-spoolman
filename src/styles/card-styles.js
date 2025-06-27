@@ -360,6 +360,19 @@ export const cardStyles = css`
     grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
     gap: 16px;
     padding: 16px;
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+    position: relative;
+  }
+
+  .materials::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 20%;
+    right: 20%;
+    height: 1px;
+    background-color: var(--divider-color);
   }
 
   .material-slot {
