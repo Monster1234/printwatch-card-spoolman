@@ -87,11 +87,13 @@
           "empty": "Empty",
           "unknown": "Unknown",
           "external_spool": "External Spool",
-          "enter_weight": "Used weight (g)",
-          "set_tray": "Set Tray",
-          "select_spool": "Select Spool",
-          "use_filament": "Use Filament",
-          "current_tray": "Current Tray"
+        "enter_weight": "Used weight (g)",
+        "enter_amount": "New amount (g)",
+        "set_tray": "Set Tray",
+        "set_amount": "Set Filament Amount",
+        "select_spool": "Select Spool",
+        "use_filament": "Use Filament",
+        "current_tray": "Current Tray"
         }
       }
     }

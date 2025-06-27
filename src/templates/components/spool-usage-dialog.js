@@ -27,6 +27,19 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
     });
   };
 
+  const getCurrentWeight = () => {
+    let weight = null;
+    Object.values(hass.states).some((stateObj) => {
+      if (stateObj.attributes?.id === dialogConfig.spoolId) {
+        const w = parseFloat(stateObj.state);
+        if (!isNaN(w)) weight = w;
+        return true;
+      }
+      return false;
+    });
+    return weight;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const dialog = e.target.closest('ha-dialog');
@@ -36,7 +49,7 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
     console.log('running submit', activeIndex);
 
     if (activeIndex === 0) {
-      const input = dialog.querySelector('ha-textfield');
+      const input = dialog.querySelector('#use-weight');
       const value = input ? parseFloat(input.value) : null;
       if (value === null || isNaN(value)) return;
       hass.callService('spoolman', 'use_spool_filament', {
@@ -49,6 +62,23 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
         console.error('Error using filament:', err);
       });
     } else if (activeIndex === 1) {
+      const input = dialog.querySelector('#set-amount');
+      const value = input ? parseFloat(input.value) : null;
+      if (value === null || isNaN(value)) return;
+      const currentWeight = getCurrentWeight();
+      if (currentWeight === null) return;
+      const diff = currentWeight - value;
+      if (isNaN(diff)) return;
+      hass.callService('spoolman', 'use_spool_filament', {
+        id: dialogConfig.spoolId,
+        use_weight: diff
+      }).then(() => {
+        runRefreshScript();
+        dialogConfig.onClose();
+      }).catch(err => {
+        console.error('Error setting amount:', err);
+      });
+    } else if (activeIndex === 2) {
       const select = dialog.querySelector('#tray-select');
       const tray = parseInt(select?.value, 10);
       if (!isNaN(tray)) {
@@ -89,20 +119,32 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
       <div class="dialog-content">
         <ha-select
           id="action-select"
-          .value="0"
+          .value=${'0'}
           @selected=${handleSectionChange}
           @closed=${(e) => e.stopPropagation()}
         >
-          <mwc-list-item value="0">
+          <mwc-list-item .value=${'0'} selected>
             ${localize.t('materials.use_filament')}
           </mwc-list-item>
-          <mwc-list-item value="1">
+          <mwc-list-item .value=${'1'}>
+            ${localize.t('materials.set_amount')}
+          </mwc-list-item>
+          <mwc-list-item .value=${'2'}>
             ${localize.t('materials.set_tray')}
           </mwc-list-item>
         </ha-select>
         <div class="section-content">
           <ha-textfield
+            id="use-weight"
             label=${localize.t('materials.enter_weight')}
+            type="number"
+            class="temp-input"
+          ></ha-textfield>
+        </div>
+        <div class="section-content" style="display:none">
+          <ha-textfield
+            id="set-amount"
+            label=${localize.t('materials.enter_amount')}
             type="number"
             class="temp-input"
           ></ha-textfield>
@@ -111,7 +153,7 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
           <div class="current-tray">${localize.t('materials.current_tray')}: ${currentTray}</div>
           <ha-select
             id="tray-select"
-            .value="${currentTray}"
+            .value=${currentTray}
             @closed=${(e) => e.stopPropagation()}
           >
             ${[1, 2, 3, 4].map(i => html`<mwc-list-item .value=${i}>${i}</mwc-list-item>`)}
