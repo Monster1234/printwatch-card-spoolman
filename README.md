@@ -1,5 +1,7 @@
 # PrintWatch Card - Spoolman
 
+This builds up on the great work of drkpxl/printwatch-card.
+
 Spoolman integration of printwatch-card and external camera.
 
 - Hook an external camera to feed. Switch between internal and external.
