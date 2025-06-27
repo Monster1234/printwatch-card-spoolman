@@ -12,7 +12,7 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
   };
 
   const clearTray = (tray) => {
-    if (tray !== 0){
+    if (tray > 0){
       Object.entries(hass.states).forEach(([entityId, stateObj]) => {
         if (!entityId.startsWith('sensor.spoolman_spool_')) return;
         console.log('running clear tray', tray);
