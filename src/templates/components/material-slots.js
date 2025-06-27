@@ -9,7 +9,9 @@ export const materialSlotsTemplate = (slots, onClick) => html`
       // Clip top 'percent%' of the fill only
       const clipInset = `inset(${percent}% 0 0 0)`;
       return html`
-        <div class="material-slot" @click=${() => onClick?.(slot, index)}>
+        <div
+          class="material-slot${slot.spool_id ? ' clickable' : ''}"
+          @click=${() => slot.spool_id && onClick?.(slot, index)}>
           <div class="material-circle-wrapper">
             <!-- Border layer: full circle -->
             <div

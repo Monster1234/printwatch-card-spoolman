@@ -381,11 +381,15 @@ export const cardStyles = css`
     align-items: center;
     gap: 8px;
     text-align: center;
-    cursor: pointer;
+    cursor: default;
     padding: 12px;
     border-radius: 12px;
     transition: background-color 0.2s ease;
     -webkit-tap-highlight-color: transparent;
+  }
+
+  .material-slot.clickable {
+    cursor: pointer;
   }
     
   .material-slot:hover {
