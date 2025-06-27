@@ -67,6 +67,7 @@
           "external_spool": "Externe Spule",
         "enter_weight": "Verbrauchtes Gewicht (g)",
         "enter_amount": "Neue Menge (g)",
+        "enter_tray": "Fachnummer",
         "set_tray": "Fach setzen",
         "set_amount": "Filamentmenge setzen",
         "select_spool": "Spule auswählen",
