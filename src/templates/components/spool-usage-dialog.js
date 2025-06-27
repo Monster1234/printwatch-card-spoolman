@@ -12,19 +12,21 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
   };
 
   const clearTray = (tray) => {
-    Object.entries(hass.states).forEach(([entityId, stateObj]) => {
-      if (!entityId.startsWith('sensor.spoolman_spool_')) return;
-      console.log('running clear tray', tray);
-      const rawTray = stateObj.attributes?.extra_ams_tray;
-      const trayNum = Number.isInteger(rawTray) ? rawTray : parseInt(rawTray, 10);
-      if (trayNum === tray && stateObj.attributes?.id !== dialogConfig.spoolId) {
-        console.log('clear tray', tray);
-        hass.callService('spoolman', 'patch_spool', {
-          id: stateObj.attributes.id,
-          extra: { ams_tray: String(0) }
-        }).then(runRefreshScript);
-      }
-    });
+    if (tray !== 0){
+      Object.entries(hass.states).forEach(([entityId, stateObj]) => {
+        if (!entityId.startsWith('sensor.spoolman_spool_')) return;
+        console.log('running clear tray', tray);
+        const rawTray = stateObj.attributes?.extra_ams_tray;
+        const trayNum = Number.isInteger(rawTray) ? rawTray : parseInt(rawTray, 10);
+        if (trayNum === tray && stateObj.attributes?.id !== dialogConfig.spoolId) {
+          console.log('clear tray', tray);
+          hass.callService('spoolman', 'patch_spool', {
+            id: stateObj.attributes.id,
+            extra: { ams_tray: String(0) }
+          }).then(runRefreshScript);
+        }
+      });
+    }
   };
 
   const getCurrentWeight = () => {
@@ -156,7 +158,7 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
             .value=${currentTray}
             @closed=${(e) => e.stopPropagation()}
           >
-            ${[1, 2, 3, 4].map(i => html`<mwc-list-item .value=${i}>${i}</mwc-list-item>`)}
+            ${[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map(i => html`<mwc-list-item .value=${i}>${i}</mwc-list-item>`)}
           </ha-select>
         </div>
       </div>
