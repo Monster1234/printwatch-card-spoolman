@@ -4,6 +4,13 @@ import { localize } from '../../utils/localize';
 export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
   if (!dialogConfig?.open || !dialogConfig?.spoolId) return html``;
 
+  const refreshScript = dialogConfig.refreshScript;
+  const runRefreshScript = () => {
+    if (refreshScript) {
+      hass.callService('script', 'turn_on', { entity_id: refreshScript });
+    }
+  };
+
   const clearTray = (tray) => {
     Object.entries(hass.states).forEach(([entityId, stateObj]) => {
       if (!entityId.startsWith('sensor.spoolman_spool_')) return;
@@ -15,7 +22,7 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
         hass.callService('spoolman', 'patch_spool', {
           id: stateObj.attributes.id,
           extra: { ams_tray: String(0) }
-        });
+        }).then(runRefreshScript);
       }
     });
   };
@@ -35,7 +42,10 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
       hass.callService('spoolman', 'use_spool_filament', {
         id: dialogConfig.spoolId,
         use_weight: value
-      }).then(() => dialogConfig.onClose()).catch(err => {
+      }).then(() => {
+        runRefreshScript();
+        dialogConfig.onClose();
+      }).catch(err => {
         console.error('Error using filament:', err);
       });
     } else if (activeIndex === 1) {
@@ -46,7 +56,10 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
         hass.callService('spoolman', 'patch_spool', {
           id: dialogConfig.spoolId,
           extra: { ams_tray: String(tray) }
-        }).then(() => dialogConfig.onClose()).catch(err => {
+        }).then(() => {
+          runRefreshScript();
+          dialogConfig.onClose();
+        }).catch(err => {
           console.error('Error setting tray:', err);
         });
       }

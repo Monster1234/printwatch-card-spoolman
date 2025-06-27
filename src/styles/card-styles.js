@@ -439,8 +439,20 @@ export const cardStyles = css`
   .spoolman-buttons {
     display: flex;
     justify-content: space-around;
-    gap: 8px;
-    padding: 16px;
+    width: 100%;
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+    position: relative;
+  }
+
+  .spoolman-buttons::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 20%;
+    right: 20%;
+    height: 1px;
+    background-color: var(--divider-color);
   }
 
 `;

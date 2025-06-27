@@ -157,6 +157,7 @@ class PrintWatchCard extends LitElement {
       open: true,
       spoolId: slot.spool_id,
       trayIndex,
+      refreshScript: this.config.refresh_spoolman_script,
       onClose: () => {
         this._spoolDialog = { open: false };
         this.requestUpdate();

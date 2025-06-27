@@ -28,15 +28,15 @@ export const spoolmanButtonsTemplate = ({ hass, config }) => {
 
   return html`
     <div class="spoolman-buttons">
-      <button class="btn" @click=${pressButton}>
+      <div class="temp-item" @click=${pressButton}>
         ${localize.t('controls.refresh_printer')}
-      </button>
-      <button class="btn" @click=${runScript}>
+      </div>
+      <div class="temp-item" @click=${runScript}>
         ${localize.t('controls.refresh_spoolman')}
-      </button>
-      <button class="btn" @click=${openLink}>
+      </div>
+      <div class="temp-item" @click=${openLink}>
         ${localize.t('controls.go_to_spoolman')}
-      </button>
+      </div>
     </div>
   `;
 };
