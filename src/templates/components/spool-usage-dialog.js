@@ -96,7 +96,11 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
         </div>
         <div class="section-content" style="display:none">
           <div class="current-tray">${localize.t('materials.current_tray')}: ${currentTray}</div>
-          <ha-select id="tray-select" .value="${currentTray}">
+          <ha-select
+            id="tray-select"
+            .value="${currentTray}"
+            @closed=${(e) => e.stopPropagation()}
+          >
             ${[1, 2, 3, 4].map(i => html`<mwc-list-item .value=${i}>${i}</mwc-list-item>`)}
           </ha-select>
         </div>
