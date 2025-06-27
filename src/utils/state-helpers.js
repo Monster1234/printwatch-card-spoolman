@@ -11,6 +11,12 @@ const PRINTING_PROCESS_STATES = [
   'calibrating_extrusion_flow'
 ];
 
+const normalizeHexColor = (val) => {
+  if (!val) return undefined;
+  return val.startsWith('#') ? val : `#${val}`;
+};
+
+
 export const isPrinting = (hass, config) => {
   const currentStage = hass.states[config.current_stage_entity]?.state;
   const printStatus = hass.states[config.print_status_entity]?.state;
@@ -55,7 +61,7 @@ export const getAmsSlots = (hass, config) => {
     if (externalSpool?.state && externalSpool.state !== 'unknown') {
       return [{
         type: externalSpool.state || 'External Spool',
-        color: externalSpool.attributes?.color || '#E0E0E0',
+        color: normalizeHexColor(externalSpool.attributes?.color) || '#E0E0E0',
         empty: false,
         name: externalSpool.attributes?.name || 'External Spool',
         active: true
@@ -113,8 +119,11 @@ export const getAmsSlots = (hass, config) => {
             slot.remaining_percent = remaining_percent;
             slot.type = sensorObj.attributes?.filament_name || slot.type;
           }
-        slot.spool_id = sensorObj.attributes.id;
-        }
+          const colorAttr = sensorObj.attributes?.filament_color_hex || sensorObj.attributes?.color;
+          if (colorAttr) {
+            slot.color = normalizeHexColor(colorAttr);
+          }
+          slot.spool_id = sensorObj.attributes.id;        }
       }
     }
   });
@@ -135,9 +144,10 @@ export const getUnassignedSpools = (hass) => {
     const weight = parseFloat(stateObj.state);
     const remainingPercent = weight / parseFloat(stateObj.attributes?.initial_weight);
 
+    const colorAttr = stateObj.attributes?.filament_color_hex || stateObj.attributes?.color;
     result.push({
       type: stateObj.attributes?.filament_name || stateObj.attributes?.material_name || 'Unknown',
-      color: stateObj.attributes?.color || '#E0E0E0',
+      color: normalizeHexColor(colorAttr) || '#E0E0E0',
       empty: false,
       active: false,
       name: stateObj.attributes?.name || `Spool ${stateObj.attributes?.id}`,
