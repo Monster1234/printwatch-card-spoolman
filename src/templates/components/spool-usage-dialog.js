@@ -14,7 +14,7 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
         console.log('clear tray', tray);
         hass.callService('spoolman', 'patch_spool', {
           id: stateObj.attributes.id,
-          extra: { extra_ams_tray: 0 }
+          extra: { ams_tray: String(0) }
         });
       }
     });
@@ -45,7 +45,7 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
         clearTray(tray);
         hass.callService('spoolman', 'patch_spool', {
           id: dialogConfig.spoolId,
-          extra: { ams_tray: tray }
+          extra: { ams_tray: String(tray) }
         }).then(() => dialogConfig.onClose()).catch(err => {
           console.error('Error setting tray:', err);
         });
