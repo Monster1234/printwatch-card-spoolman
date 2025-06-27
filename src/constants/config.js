@@ -29,7 +29,10 @@ export const DEFAULT_CONFIG = {
   chamber_light_entity: 'light.p1s_01p00a382500072_chamber_light',
   online_entity: 'binary_sensor.p1s_01p00a382500072_online',
   print_weight_entity: 'sensor.p1s_print_weight',
-  print_length_entity: 'sensor.p1s_print_length'
+  print_length_entity: 'sensor.p1s_print_length',
+  refresh_printer_button_entity: 'button.a1_force_refresh_data',
+  refresh_spoolman_script: 'script.reload_spoolman',
+  spoolman_url: 'http://192.168.129.70:7912/'
 };
 
 /**

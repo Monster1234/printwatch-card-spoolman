@@ -198,6 +198,7 @@ class PrintWatchCard extends LitElement {
       hass: this.hass,
       amsSlots,
       otherSpools,
+      config: this.config,
       formatters: this.formatters,
       _toggleLight: () => this._toggleLight(),
       _toggleFan: () => this._toggleFan(),
