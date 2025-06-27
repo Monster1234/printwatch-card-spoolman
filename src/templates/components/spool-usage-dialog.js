@@ -79,8 +79,8 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
         console.error('Error setting amount:', err);
       });
     } else if (activeIndex === 2) {
-      const select = dialog.querySelector('#tray-select');
-      const tray = parseInt(select?.value, 10);
+      const input = dialog.querySelector('#tray-select');
+      const tray = parseInt(input?.value, 10);
       if (!isNaN(tray)) {
         clearTray(tray);
         hass.callService('spoolman', 'patch_spool', {
@@ -151,13 +151,12 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
         </div>
         <div class="section-content" style="display:none">
           <div class="current-tray">${localize.t('materials.current_tray')}: ${currentTray}</div>
-          <ha-select
+          <ha-textfield
             id="tray-select"
-            .value=${currentTray}
-            @closed=${(e) => e.stopPropagation()}
-          >
-            ${[1, 2, 3, 4].map(i => html`<mwc-list-item .value=${i}>${i}</mwc-list-item>`)}
-          </ha-select>
+            label=${localize.t('materials.enter_tray')}
+            type="number"
+            class="temp-input"
+          ></ha-textfield>
         </div>
       </div>
       <mwc-button

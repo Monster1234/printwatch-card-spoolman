@@ -89,6 +89,7 @@
           "external_spool": "External Spool",
         "enter_weight": "Used weight (g)",
         "enter_amount": "New amount (g)",
+        "enter_tray": "Tray number",
         "set_tray": "Set Tray",
         "set_amount": "Set Filament Amount",
         "select_spool": "Select Spool",
