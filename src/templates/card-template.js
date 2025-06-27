@@ -12,8 +12,9 @@ import { spoolUsageDialogTemplate } from './components/spool-usage-dialog';
 export const cardTemplate = (context) => {
   const { 
     entities, 
-    hass, 
-    amsSlots, 
+    hass,
+    amsSlots,
+    otherSpools,
     _toggleLight, 
     _toggleFan, 
     cameraProps,
@@ -50,6 +51,7 @@ export const cardTemplate = (context) => {
       })}
       ${temperatureDisplayTemplate(entities, hass, dialogConfig, setDialogConfig)}
       ${materialSlotsTemplate(amsSlots, (slot, idx) => handleSpoolDialog(slot, idx))}
+      ${materialSlotsTemplate(otherSpools, (slot) => handleSpoolDialog(slot))}
       ${temperatureDialogTemplate(dialogConfig, hass)}
       ${spoolUsageDialogTemplate(spoolDialog, hass)}
       ${confirmDialogTemplate(confirmDialog)}

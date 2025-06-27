@@ -122,6 +122,34 @@ export const getAmsSlots = (hass, config) => {
   return processedSlots.length > 0 ? processedSlots : [];
 };
 
+export const getUnassignedSpools = (hass) => {
+  const result = [];
+  Object.entries(hass.states).forEach(([entityId, stateObj]) => {
+    if (!entityId.startsWith('sensor.spoolman_spool_')) return;
+    if (stateObj.attributes?.archived) return;
+
+    const rawTray = stateObj.attributes?.extra_ams_tray;
+    const tray = Number.isInteger(rawTray) ? rawTray : parseInt(rawTray, 10);
+    if (tray && tray > 0) return;
+
+    const weight = parseFloat(stateObj.state);
+    const remainingPercent = weight / parseFloat(stateObj.attributes?.initial_weight);
+
+    result.push({
+      type: stateObj.attributes?.filament_name || stateObj.attributes?.material_name || 'Unknown',
+      color: stateObj.attributes?.color || '#E0E0E0',
+      empty: false,
+      active: false,
+      name: stateObj.attributes?.name || `Spool ${stateObj.attributes?.id}`,
+      weight: isNaN(weight) ? undefined : weight,
+      remaining_percent: isNaN(remainingPercent) ? 1.0 : remainingPercent,
+      spool_id: stateObj.attributes?.id
+    });
+  });
+
+  return result;
+};
+
 const getLastPrintName = (hass, config) => {
   const printStatus = hass.states[config.print_status_entity]?.state;
   const taskName = hass.states[config.task_name_entity]?.state;
