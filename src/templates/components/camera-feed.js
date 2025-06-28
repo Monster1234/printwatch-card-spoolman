@@ -47,7 +47,7 @@ export const cameraFeedTemplate = (cameraProps) => {
         : ''}
 
       <img
-        src="https://dummyimage.com/640x480/121212/8c8c8c&text=+"
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 480'%3E%3Crect width='640' height='480' fill='%23121212'/%3E%3C/svg%3E"
         style="width:100%; height:100%; object-fit:cover; border-radius:12px;"
         alt="Camera Feed"
         @error=${onError}
