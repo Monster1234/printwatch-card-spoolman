@@ -15,11 +15,11 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
     if (tray > 0){
       Object.entries(hass.states).forEach(([entityId, stateObj]) => {
         if (!entityId.startsWith('sensor.spoolman_spool_')) return;
-        console.log('running clear tray', tray);
+
         const rawTray = stateObj.attributes?.extra_ams_tray;
         const trayNum = Number.isInteger(rawTray) ? rawTray : parseInt(rawTray, 10);
         if (trayNum === tray && stateObj.attributes?.id !== dialogConfig.spoolId) {
-          console.log('clear tray', tray);
+
           hass.callService('spoolman', 'patch_spool', {
             id: stateObj.attributes.id,
             extra: { ams_tray: String(0) }
@@ -48,7 +48,6 @@ export const spoolUsageDialogTemplate = (dialogConfig, hass) => {
     if (!dialog) return;
     const select = dialog.querySelector('#action-select');
     const activeIndex = parseInt(select?.value ?? '0', 10);
-    console.log('running submit', activeIndex);
 
     if (activeIndex === 0) {
       const input = dialog.querySelector('#use-weight');
