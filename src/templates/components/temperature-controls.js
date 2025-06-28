@@ -28,7 +28,6 @@ export const temperatureDialogTemplate = (dialogConfig, hass) => {
         entity_id: dialogConfig.entityId,
         option: value
       }).then(() => {
-        console.log('Speed profile updated successfully');
         dialogConfig.onClose();
       }).catch(err => {
         console.error('Error updating speed profile:', err);
@@ -38,7 +37,6 @@ export const temperatureDialogTemplate = (dialogConfig, hass) => {
         entity_id: dialogConfig.entityId,
         value: value
       }).then(() => {
-        console.log('Temperature updated successfully');
         dialogConfig.onClose();
       }).catch(err => {
         console.error('Error updating temperature:', err);
