@@ -1,4 +1,10 @@
 /**
+ * Default camera update interval in milliseconds
+ */
+export const DEFAULT_CAMERA_REFRESH_RATE = 1000;
+export const DEFAULT_EX_CAMERA_REFRESH_RATE = 300;
+
+/**
  * Default configuration for the PrintWatch card
  */
 export const DEFAULT_CONFIG = {
@@ -32,11 +38,7 @@ export const DEFAULT_CONFIG = {
   print_length_entity: 'sensor.p1s_print_length',
   refresh_printer_button_entity: 'button.a1_force_refresh_data',
   refresh_spoolman_script: 'script.reload_spoolman',
-  spoolman_url: 'http://192.168.129.70:7912/'
+  spoolman_url: 'http://192.168.129.70:7912/',
+  camera_refresh_rate: DEFAULT_CAMERA_REFRESH_RATE,
+  external_camera_refresh_rate: DEFAULT_EX_CAMERA_REFRESH_RATE
 };
-
-/**
- * Default camera update interval in milliseconds
- */
-export const DEFAULT_CAMERA_REFRESH_RATE = 1000;
-export const DEFAULT_EX_CAMERA_REFRESH_RATE = 300;
