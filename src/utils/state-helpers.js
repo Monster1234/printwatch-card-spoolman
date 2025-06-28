@@ -117,7 +117,7 @@ export const getAmsSlots = (hass, config) => {
           if (!isNaN(weight)) {
             slot.weight = weight;
             slot.remaining_percent = remaining_percent;
-            slot.type = sensorObj.attributes?.filament_name || slot.type;
+            slot.type = sensorObj.attributes?.friendly_name || slot.type;
           }
           const colorAttr = sensorObj.attributes?.filament_color_hex || sensorObj.attributes?.color;
           if (colorAttr) {
@@ -146,7 +146,7 @@ export const getUnassignedSpools = (hass) => {
 
     const colorAttr = stateObj.attributes?.filament_color_hex || stateObj.attributes?.color;
     result.push({
-      type: stateObj.attributes?.filament_name || stateObj.attributes?.material_name || 'Unknown',
+      type: stateObj.attributes?.friendly_name || stateObj.attributes?.material_name || 'Unknown',
       color: normalizeHexColor(colorAttr) || '#E0E0E0',
       empty: false,
       active: false,
