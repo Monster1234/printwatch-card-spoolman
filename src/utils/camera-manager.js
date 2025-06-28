@@ -129,8 +129,9 @@ export class CameraManager {
     if (img && entityId) {
       const entity = this.hass.states[entityId];
       if (entity?.attributes?.entity_picture) {
-        img.src = `${entity.attributes.entity_picture}`;
-      }
+        const base = `${entity.attributes.entity_picture}`;
+        const sep = base.includes('?') ? '&' : '?';
+        img.src = `${base}${sep}_=${Date.now()}`;      }
     }
   }
 
