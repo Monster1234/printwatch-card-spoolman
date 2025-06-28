@@ -149,6 +149,8 @@ export const cardStyles = css`
     justify-content: center;
     color: var(--secondary-text-color);
     gap: 8px;
+    pointer-events: none;
+    z-index: 1;
   }
 
   .camera-label {
@@ -161,6 +163,7 @@ export const cardStyles = css`
     font-size: 16px;
     background-color: color-mix(in srgb, var(--card-background-color) 80%, transparent);
     text-transform: capitalize;
+    z-index: 2;
   }
 
   .camera-controls {
@@ -169,6 +172,7 @@ export const cardStyles = css`
     right: 4px;
     color: var(--secondary-text-color);
     padding: 4px 8px;
+    z-index: 2;
   }
 
   /* Print Status */
