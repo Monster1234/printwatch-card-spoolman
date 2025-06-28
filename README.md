@@ -37,7 +37,7 @@ Spoolman needs an extra field `ams_tray` on each spool where `0` means the spool
 
 ## Configuration
 
-Add the card to your Lovelace dashboard. At minimum set `printer_name` and `spoolman_url`.
+Add the card to your Lovelace dashboard.
 
 ```yaml
 type: custom:printwatch-card
