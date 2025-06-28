@@ -42,47 +42,77 @@ Add the card to your Lovelace dashboard. At minimum set `printer_name` and `spoo
 ```yaml
 type: custom:printwatch-card
 printer_name: My 3D Printer
-spoolman_url: http://192.168.1.50:7912/
+print_status_entity: sensor.p1s_01p00a382500072_print_status
+current_stage_entity: sensor.p1s_01p00a382500072_current_stage
+task_name_entity: sensor.p1s_01p00a382500072_task_name
+progress_entity: sensor.p1s_01p00a382500072_print_progress
+current_layer_entity: sensor.p1s_01p00a382500072_current_layer
+total_layers_entity: sensor.p1s_01p00a382500072_total_layer_count
+remaining_time_entity: sensor.p1s_01p00a382500072_remaining_time
+bed_temp_entity: sensor.p1s_01p00a382500072_bed_temperature
+nozzle_temp_entity: sensor.p1s_01p00a382500072_nozzle_temperature
+bed_target_temp_entity: number.p1s_01p00a382500072_bed_target_temperature
+nozzle_target_temp_entity: number.p1s_01p00a382500072_nozzle_target_temperature
+speed_profile_entity: select.p1s_01p00a382500072_printing_speed
+active_tray_index_entity: sensor.p1s_01p00a382500072_active_tray_index
+ams_slot1_entity: sensor.p1s_01p00a382500072_ams_1_tray_1
+ams_slot2_entity: sensor.p1s_01p00a382500072_ams_1_tray_2
+ams_slot3_entity: sensor.p1s_01p00a382500072_ams_1_tray_3
+ams_slot4_entity: sensor.p1s_01p00a382500072_ams_1_tray_4
 camera_entity: image.p1s_camera
+camera_entity_external: ''
+cover_image_entity: image.p1s_cover_image
+pause_button_entity: button.p1s_01p00a382500072_pause_printing
+resume_button_entity: button.p1s_01p00a382500072_resume_printing
+stop_button_entity: button.p1s_01p00a382500072_stop_printing
+chamber_light_entity: light.p1s_01p00a382500072_chamber_light
+online_entity: binary_sensor.p1s_01p00a382500072_online
+print_weight_entity: sensor.p1s_print_weight
+print_length_entity: sensor.p1s_print_length
+refresh_printer_button_entity: button.a1_force_refresh_data
+refresh_spoolman_script: script.reload_spoolman
+spoolman_url: http://localhost:7912/
+camera_refresh_rate: 1000
+external_camera_refresh_rate: 300
 ```
 
 ### Options
 
-| Option | Default | Description |
-|-------|---------|-------------|
-| `printer_name` | `My 3D Printer` | Name displayed on the card. |
-| `print_status_entity` | `sensor.p1s_01p00a382500072_print_status` | Sensor providing the overall print status. |
-| `current_stage_entity` | `sensor.p1s_01p00a382500072_current_stage` | Current stage of the print. |
-| `task_name_entity` | `sensor.p1s_01p00a382500072_task_name` | Name of the active job. |
-| `progress_entity` | `sensor.p1s_01p00a382500072_print_progress` | Percentage progress of the print. |
-| `current_layer_entity` | `sensor.p1s_01p00a382500072_current_layer` | Currently printed layer number. |
-| `total_layers_entity` | `sensor.p1s_01p00a382500072_total_layer_count` | Total number of layers. |
-| `remaining_time_entity` | `sensor.p1s_01p00a382500072_remaining_time` | Estimated time remaining. |
-| `bed_temp_entity` | `sensor.p1s_01p00a382500072_bed_temperature` | Bed temperature sensor. |
-| `nozzle_temp_entity` | `sensor.p1s_01p00a382500072_nozzle_temperature` | Nozzle temperature sensor. |
-| `bed_target_temp_entity` | `number.p1s_01p00a382500072_bed_target_temperature` | Number entity for setting the bed temperature. |
-| `nozzle_target_temp_entity` | `number.p1s_01p00a382500072_nozzle_target_temperature` | Number entity for setting the nozzle temperature. |
-| `speed_profile_entity` | `select.p1s_01p00a382500072_printing_speed` | Select entity for the printing speed profile. |
-| `active_tray_index_entity` | `sensor.p1s_01p00a382500072_active_tray_index` | Sensor indicating the active AMS tray. |
-| `ams_slot1_entity` | `sensor.p1s_01p00a382500072_ams_1_tray_1` | Sensor for AMS slot 1. |
-| `ams_slot2_entity` | `sensor.p1s_01p00a382500072_ams_1_tray_2` | Sensor for AMS slot 2. |
-| `ams_slot3_entity` | `sensor.p1s_01p00a382500072_ams_1_tray_3` | Sensor for AMS slot 3. |
-| `ams_slot4_entity` | `sensor.p1s_01p00a382500072_ams_1_tray_4` | Sensor for AMS slot 4. |
-| `camera_entity` | `image.p1s_camera` | Camera entity for the printer. |
-| `camera_entity_external` | `''` | Optional external camera entity. |
-| `cover_image_entity` | `image.p1s_cover_image` | Preview image entity for completed prints. |
-| `pause_button_entity` | `button.p1s_01p00a382500072_pause_printing` | Button to pause the print. |
-| `resume_button_entity` | `button.p1s_01p00a382500072_resume_printing` | Button to resume printing. |
-| `stop_button_entity` | `button.p1s_01p00a382500072_stop_printing` | Button to stop the print. |
-| `chamber_light_entity` | `light.p1s_01p00a382500072_chamber_light` | Toggle for the chamber light. |
-| `online_entity` | `binary_sensor.p1s_01p00a382500072_online` | Indicates if the printer is online. |
-| `print_weight_entity` | `sensor.p1s_print_weight` | Sensor with filament weight used. |
-| `print_length_entity` | `sensor.p1s_print_length` | Sensor with filament length used. |
-| `refresh_printer_button_entity` | `button.a1_force_refresh_data` | Button to refresh printer state. |
-| `refresh_spoolman_script` | `script.reload_spoolman` | Script that reloads Spoolman data. |
-| `spoolman_url` | `http://localhost:7912/` | URL of your Spoolman instance. **Must be changed**. |
-| `camera_refresh_rate` | `1000` | Internal camera refresh interval in ms. |
-| `external_camera_refresh_rate` | `300` | External camera refresh interval in ms. |
+| Option | Description |
+|-------|-------------|
+| `printer_name` | Name displayed on the card. |
+| `print_status_entity` | Sensor providing the overall print status. |
+| `current_stage_entity` | Current stage of the print. |
+| `task_name_entity` | Name of the active job. |
+| `progress_entity` | Percentage progress of the print. |
+| `current_layer_entity` | Currently printed layer number. |
+| `total_layers_entity` | Total number of layers. |
+| `remaining_time_entity` | Estimated time remaining. |
+| `bed_temp_entity` | Bed temperature sensor. |
+| `nozzle_temp_entity` | Nozzle temperature sensor. |
+| `bed_target_temp_entity` | Number entity for setting the bed temperature. |
+| `nozzle_target_temp_entity` | Number entity for setting the nozzle temperature. |
+| `speed_profile_entity` | Select entity for the printing speed profile. |
+| `active_tray_index_entity` | Sensor indicating the active AMS tray. |
+| `ams_slot1_entity` | Sensor for AMS slot 1. |
+| `ams_slot2_entity` | Sensor for AMS slot 2. |
+| `ams_slot3_entity` | Sensor for AMS slot 3. |
+| `ams_slot4_entity` | Sensor for AMS slot 4. |
+| `camera_entity` | Camera entity for the printer. |
+| `camera_entity_external` | Optional external camera entity. |
+| `cover_image_entity` | Preview image entity for completed prints. |
+| `pause_button_entity` | Button to pause the print. |
+| `resume_button_entity` | Button to resume printing. |
+| `stop_button_entity` | Button to stop the print. |
+| `chamber_light_entity` | Toggle for the chamber light. |
+| `online_entity` | Indicates if the printer is online. |
+| `print_weight_entity` | Sensor with filament weight used. |
+| `print_length_entity` | Sensor with filament length used. |
+| `refresh_printer_button_entity` | Button to refresh printer state. |
+| `refresh_spoolman_script` | Script that reloads Spoolman data. |
+| `spoolman_url` | URL of your Spoolman instance. **Must be changed**. |
+| `camera_refresh_rate` | Internal camera refresh interval in ms. |
+| `external_camera_refresh_rate` | External camera refresh interval in ms. |
 
 The defaults match the values from the sample configuration in `src/constants/config.js`. Override any of them in your YAML as required.
 
