@@ -38,7 +38,9 @@ export const DEFAULT_CONFIG = {
   print_length_entity: 'sensor.p1s_print_length',
   refresh_printer_button_entity: 'button.a1_force_refresh_data',
   refresh_spoolman_script: 'script.reload_spoolman',
-  spoolman_url: 'http://192.168.129.70:7912/',
+  // URL of your Spoolman instance. The default is a placeholder and
+  // should be overridden in your card configuration.
+  spoolman_url: 'http://localhost:7912/',
   camera_refresh_rate: DEFAULT_CAMERA_REFRESH_RATE,
   external_camera_refresh_rate: DEFAULT_EX_CAMERA_REFRESH_RATE
 };
