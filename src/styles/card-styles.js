@@ -360,8 +360,8 @@ export const cardStyles = css`
 
   /* Materials */
   .materials {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
     gap: 16px;
     padding: 16px;
     margin-bottom: 32px;
@@ -383,8 +383,6 @@ export const cardStyles = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex: 1 1 calc(25% - 16px);
-    max-width: calc(25% - 16px);
     gap: 8px;
     text-align: center;
     cursor: default;
